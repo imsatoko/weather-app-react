@@ -43,7 +43,7 @@ export default function CurrentWeather() {
           <div className="col-6">
             <span className="CurrentWind">
               <i className="fas fa-wind"></i>
-              <span id="wind-speed"> 8.2m/s</span>
+              <span id="wind-speed"> 9.2m/s</span>
             </span>
           </div>
         </div>
