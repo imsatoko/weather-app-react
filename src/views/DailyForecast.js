@@ -17,7 +17,7 @@ export default function DailyForecast() {
               <br />
               <div className="Temperature">
                 <span className="TmpHigh">21°</span>|
-                <span className="tmpLow">14°</span>
+                <span className="TmpLow">14°</span>
               </div>
             </div>
           </div>
