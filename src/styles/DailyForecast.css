@@ -1,0 +1,24 @@
+.DailyForecast {
+  color: #393b44;
+}
+
+.FcstDay {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.Day {
+  font-size: 14px;
+}
+
+.FcstDay01 {
+  margin: 30px auto;
+}
+
+.FcstDay02 {
+  margin: 20px auto;
+}
+
+.WeatherIconDay {
+  font-size: 26px;
+}

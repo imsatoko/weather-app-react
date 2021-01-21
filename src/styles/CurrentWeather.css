@@ -1,0 +1,94 @@
+.CurrentWeather {
+  height: 350px;
+  max-width: 700px;
+  margin: 0 auto;
+  color: #393b44;
+}
+
+.CurrentWeather img {
+  display: block;
+  height: 350px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+.CurrentStatus {
+  position: relative;
+  top: -345px;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  border: 1px dashed;
+  margin: 0px auto;
+  background: rgba(241, 243, 245, 0.5);
+}
+
+.CurrentWeather h1 {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 900;
+  padding-top: 30px;
+}
+
+.CurrentWeather p {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 200;
+  margin: 0;
+}
+
+.CurrentTemperature {
+  display: block;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 900;
+  margin: 10px;
+}
+
+.CurrentTemperatureMax {
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.CurrentTemperatureMin {
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.CurrentWeatherIcon {
+  padding: 0px;
+  text-align: center;
+}
+
+.WeatherIconCurrent {
+  font-size: 44px;
+  text-align: center;
+}
+
+.CurrentWeatherText {
+  display: block;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 900;
+  margin: 10px;
+  text-transform: capitalize;
+}
+
+.CurrentPrecipitation {
+  display: block;
+  text-align: right;
+  font-size: 16px;
+}
+
+.CurrentWind {
+  display: block;
+  text-align: left;
+  font-size: 16px;
+}

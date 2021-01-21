@@ -1,0 +1,32 @@
+.HourlyForecast {
+  color: #393b44;
+  margin-top: 30px;
+}
+
+.FcstHour {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.Hour {
+  font-size: 14px;
+}
+
+.WeatherIconHour {
+  margin: 5px auto;
+  font-size: 26px;
+}
+
+.Temperature {
+  margin: 5px auto;
+  font-size: 13px;
+}
+
+.TmpHigh {
+  font-weight: bold;
+}
+
+.TmpLow {
+  font-weight: bold;
+  opacity: 50%;
+}

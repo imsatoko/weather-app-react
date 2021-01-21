@@ -1,0 +1,56 @@
+.Unit {
+  padding-top: 10px;
+  padding-left: 30px;
+}
+
+.Heat {
+  display: inline-block;
+  position: relative;
+  color: #393b44;
+  font-size: 16px;
+  font-weight: 600;
+  top: -20px;
+}
+
+.Switch {
+  position: relative;
+  width: 60px;
+  height: 34px;
+}
+
+.Switch input {
+  display: none;
+}
+
+.Slider {
+  position: absolute;
+  background: #d6e0f0;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 34px;
+}
+
+.Slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  top: 4px;
+  left: 4px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .Slider {
+  background-color: #2196f3;
+  transition: 0.4s;
+}
+
+input:checked + .Slider:before {
+  transform: translateX(26px);
+  transition: 0.4s;
+}
