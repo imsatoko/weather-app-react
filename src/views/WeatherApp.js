@@ -16,17 +16,17 @@ const units = "metric";
 export const WeatherToday = React.createContext();
 
 export default function WeatherApp() {
-  const [city, setCity] = useState("");
-  const [currentWeather, setCurrentWeather] = useState({
-    name: "Tokyo",
-    temp: 10,
-    maxTemp: 13,
-    minTemp: 8,
-    icon: "fas fa-cloud WeatherIconCurrent",
-    description: "Broken Clouds",
-    wind: 9.2,
-    precipitation: 70,
-  });
+  const [init, setInit] = useState(true);
+  const [city, setCity] = useState("tokyo");
+  const [currentWeather, setCurrentWeather] = useState({});
+
+  if (init) {
+    Axios.get(
+      `${apiEndpoint}/weather?appid=${apiKey}&q=${city}&units=${units}`
+    ).then(updateCurrentWeather);
+
+    setInit(false);
+  }
 
   function SearchWeather(event) {
     event.preventDefault();
@@ -68,9 +68,9 @@ export default function WeatherApp() {
           Current
         </button>
       </form>
-      <Error />
-      <Unit />
       <WeatherToday.Provider value={[currentWeather, setCurrentWeather]}>
+        <Error />
+        <Unit />
         <CurrentWeather />
       </WeatherToday.Provider>
       <HourlyForecast />
