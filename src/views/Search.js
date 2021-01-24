@@ -11,17 +11,14 @@ const apiEndpoint = "https://api.openweathermap.org/data/2.5";
 const units = "metric";
 
 export default function Search() {
-  const [init, setInit] = useState(true);
   const [city, setCity] = useState("tokyo");
   const [currentWeather, setCurrentWeather] = useContext(WeatherToday);
   // const [weatherForecast, setWeatherForecast] = useContext(WeatherForecast);
 
-  if (init) {
+  if (!Object.keys(currentWeather).length) {
     Axios.get(
       `${apiEndpoint}/weather?appid=${apiKey}&q=${city}&units=${units}`
     ).then(updateCurrentWeather);
-
-    setInit(false);
   }
 
   function SearchWeather(event) {
