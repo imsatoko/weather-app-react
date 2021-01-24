@@ -1,8 +1,11 @@
 import React from "react";
+//import { WeatherForecast } from "./WeatherApp";
 
 import "./../styles/HourlyForecast.css";
 
 export default function HourlyForecast() {
+  //  const weatherForecast = useContext(WeatherForecast);
+
   return (
     <div className="HourlyForecast">
       <div className="row">
