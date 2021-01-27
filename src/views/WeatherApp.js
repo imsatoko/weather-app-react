@@ -9,16 +9,16 @@ import DailyForecast from "./DailyForecast";
 import "./../styles/WeatherApp.css";
 
 export const WeatherToday = React.createContext();
-export const WeatherForecast = React.createContext();
+export const ForecastHour = React.createContext();
 
 export default function WeatherApp() {
   const [currentWeather, setCurrentWeather] = useState({});
-  const [weatherForecast, setWeatherForecast] = useState({});
+  const [hourlyForecast, setHourlyForecast] = useState([]);
 
   return (
     <div className="WeatherApp">
       <WeatherToday.Provider value={[currentWeather, setCurrentWeather]}>
-        <WeatherForecast.Provider value={[weatherForecast, setWeatherForecast]}>
+        <ForecastHour.Provider value={[hourlyForecast, setHourlyForecast]}>
           <Search />
           <Error />
           <Unit />
@@ -26,7 +26,7 @@ export default function WeatherApp() {
           <HourlyForecast />
           <hr className="Bar" />
           <DailyForecast />
-        </WeatherForecast.Provider>
+        </ForecastHour.Provider>
       </WeatherToday.Provider>
     </div>
   );
