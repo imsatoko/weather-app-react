@@ -1,6 +1,6 @@
 import { formatDay } from "./Date";
 
-export function FormatCurrentWeather(response) {
+export function FormatCurrentWeather(response, precipitation) {
   let result = response.data;
 
   let currentWeather = {
@@ -8,10 +8,11 @@ export function FormatCurrentWeather(response) {
     temp: Math.round(result.main.temp),
     maxTemp: Math.round(result.main.temp_max),
     minTemp: Math.round(result.main.temp_min),
-    icon: "fas fa-cloud WeatherIconCurrent",
-    description: "Broken Clouds",
+    icon: `${formatIcon(result)} WeatherIconCurrent`,
+    background: "./../img/cloud.jpg",
+    description: result.weather[0].description,
     wind: result.wind.speed,
-    precipitation: 70,
+    precipitation: Math.round(precipitation * 10) * 10,
   };
 
   return currentWeather;

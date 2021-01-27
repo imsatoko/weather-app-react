@@ -35,27 +35,29 @@ export default function Search() {
   async function updateWeather() {
     if (city) {
       // current weather
-      let response = await Axios.get(
+      let current = await Axios.get(
         `${apiEndpoint}/weather?appid=${apiKey}&q=${city}&units=${units}`
       );
-      updateCurrentWeather(response);
 
       // 3 hour forecast
-      Axios.get(
+      let forecastHour = await Axios.get(
         `${apiEndpoint}/forecast?appid=${apiKey}&q=${city}&units=${units}&cnt=5`
-      ).then(updateHourlyForecast);
+      );
+
+      updateCurrentWeather(current, forecastHour.data.list[0].pop);
+      updateHourlyForecast(forecastHour);
 
       // daily forecast
-      let lat = response.data.coord.lat;
-      let lon = response.data.coord.lon;
+      let lat = current.data.coord.lat;
+      let lon = current.data.coord.lon;
       Axios.get(
         `${apiEndpoint}/onecall?appid=${apiKey}&units=${units}&lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts`
       ).then(updateDailyForecast);
     }
   }
 
-  function updateCurrentWeather(response) {
-    setCurrentWeather(FormatCurrentWeather(response));
+  function updateCurrentWeather(response, precipitation) {
+    setCurrentWeather(FormatCurrentWeather(response, precipitation));
   }
 
   function updateHourlyForecast(response) {
