@@ -29,7 +29,7 @@ function formatMonth(month) {
   return months[month];
 }
 
-function formatDay(day) {
+export function formatDay(day) {
   let days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
   return days[day];
 }

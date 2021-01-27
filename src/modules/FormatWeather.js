@@ -1,3 +1,5 @@
+import { formatDay } from "./Date";
+
 export function FormatCurrentWeather(response) {
   let result = response.data;
 
@@ -25,12 +27,36 @@ export function FormatHourlyForecast(response) {
       hour: formatHour(forecast.dt),
       maxTemp: Math.round(forecast.main.temp_max),
       minTemp: Math.round(forecast.main.temp_min),
-      icon: formatIcon(forecast),
+      icon: `${formatIcon(forecast)} WeatherIconHour`,
     };
+
     hourlyForecastList.push(hourlyForecast);
   });
 
   return hourlyForecastList;
+}
+
+export function FormatDailyForecast(response) {
+  let result = response.data.daily;
+
+  let dailyForecastList = [];
+  result.forEach(function (forecast, index) {
+    if (index === 0 || index > 5) {
+      return;
+    }
+
+    let dailyForecast = {
+      dt: forecast.dt,
+      day: formatDay(new Date(forecast.dt * 1000).getDay()),
+      maxTemp: Math.round(forecast.temp.max),
+      minTemp: Math.round(forecast.temp.min),
+      icon: `${formatIcon(forecast)} WeatherIconDay`,
+    };
+
+    dailyForecastList.push(dailyForecast);
+  });
+
+  return dailyForecastList;
 }
 
 function formatHour(unixTimestamp) {
@@ -75,7 +101,7 @@ function formatDayWeatherIcon(main, description) {
     icon = formatDayWeatherIconMain(main);
   }
 
-  return `${icon} WeatherIconHour`;
+  return icon;
 }
 
 function formatDayWeatherIconMain(main) {
@@ -95,7 +121,7 @@ function formatDayWeatherIconMain(main) {
     Tornado: "fas fa-cloud",
   };
 
-  return `${icons[main]} WeatherIconHour`;
+  return icons[main];
 }
 
 // format weather icon for nighttime (6pm - 5am)
@@ -115,7 +141,7 @@ function formatNightWeatherIcon(main, description) {
     icon = formatNightWeatherIconMain(main);
   }
 
-  return `${icon} WeatherIconHour`;
+  return icon;
 }
 
 function formatNightWeatherIconMain(main) {
@@ -135,5 +161,5 @@ function formatNightWeatherIconMain(main) {
     Tornado: "fas fa-cloud",
   };
 
-  return `${icons[main]} WeatherIconHour`;
+  return icons[main];
 }
