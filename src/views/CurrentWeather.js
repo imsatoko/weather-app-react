@@ -6,9 +6,9 @@ import { WeatherToday } from "./WeatherApp";
 import "./../styles/CurrentWeather.css";
 
 export default function CurrentWeather() {
-  let currentTime = CurrentTime();
-
   const currentWeather = useContext(WeatherToday);
+
+  let currentTime = CurrentTime();
 
   return (
     <div className="CurrentWeather">

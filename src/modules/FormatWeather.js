@@ -9,7 +9,6 @@ export function FormatCurrentWeather(response, precipitation) {
     maxTemp: Math.round(result.main.temp_max),
     minTemp: Math.round(result.main.temp_min),
     icon: `${formatIcon(result)} WeatherIconCurrent`,
-    background: "./../img/cloud.jpg",
     description: result.weather[0].description,
     wind: result.wind.speed,
     precipitation: Math.round(precipitation * 10) * 10,
@@ -58,6 +57,57 @@ export function FormatDailyForecast(response) {
   });
 
   return dailyForecastList;
+}
+
+export function ConverCurrentWeather(currentWeather, isFahrenheit) {
+  let convertCurrentWeather = {
+    name: currentWeather.name,
+    temp: Math.round(convertUnit(currentWeather.temp, isFahrenheit)),
+    maxTemp: Math.round(convertUnit(currentWeather.maxTemp, isFahrenheit)),
+    minTemp: Math.round(convertUnit(currentWeather.minTemp, isFahrenheit)),
+    icon: currentWeather.icon,
+    description: currentWeather.description,
+    wind: currentWeather.wind,
+    precipitation: currentWeather.precipitation,
+  };
+
+  return convertCurrentWeather;
+}
+
+export function ConvertHourlyForecast(hourlyForecast, isFahrenheit) {
+  let convertHourlyForecastList = [];
+
+  hourlyForecast.forEach((forecast) => {
+    let convertHourlyForecast = {
+      dt: forecast.dt,
+      hour: forecast.hour,
+      maxTemp: Math.round(convertUnit(forecast.maxTemp, isFahrenheit)),
+      minTemp: Math.round(convertUnit(forecast.minTemp, isFahrenheit)),
+      icon: forecast.icon,
+    };
+
+    convertHourlyForecastList.push(convertHourlyForecast);
+  });
+
+  return convertHourlyForecastList;
+}
+
+export function ConvertDailyForecast(dailyForecast, isFahrenheit) {
+  let convertDailyForecastList = [];
+
+  dailyForecast.forEach((forecast) => {
+    let convertDailyForecast = {
+      dt: forecast.dt,
+      day: forecast.day,
+      maxTemp: Math.round(convertUnit(forecast.maxTemp, isFahrenheit)),
+      minTemp: Math.round(convertUnit(forecast.minTemp, isFahrenheit)),
+      icon: forecast.icon,
+    };
+
+    convertDailyForecastList.push(convertDailyForecast);
+  });
+
+  return convertDailyForecastList;
 }
 
 function formatHour(unixTimestamp) {
@@ -163,4 +213,20 @@ function formatNightWeatherIconMain(main) {
   };
 
   return icons[main];
+}
+
+function convertUnit(temp, isFahrenheit) {
+  if (isFahrenheit) {
+    return convertToFahrenheit(temp);
+  }
+
+  return convertToCelsius(temp);
+}
+
+function convertToCelsius(temp) {
+  return (temp - 32) / 1.8;
+}
+
+function convertToFahrenheit(temp) {
+  return temp * 1.8 + 32;
 }

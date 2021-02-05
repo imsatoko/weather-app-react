@@ -6,6 +6,7 @@ import { FormatDailyForecast } from "./../modules/FormatWeather.js";
 import { WeatherToday } from "./WeatherApp";
 import { ForecastHour } from "./WeatherApp";
 import { ForecastDay } from "./WeatherApp";
+import { Toggle } from "./WeatherApp";
 
 import "./../styles/Search.css";
 
@@ -18,6 +19,7 @@ export default function Search() {
   const [currentWeather, setCurrentWeather] = useContext(WeatherToday);
   const [hourlyForecast, setHourlyForecast] = useContext(ForecastHour);
   const [dailyForecast, setDailyForecast] = useContext(ForecastDay);
+  const [unitToggle, setUnitToggle] = useContext(Toggle);
 
   if (
     !Object.keys(currentWeather).length &&
@@ -30,6 +32,9 @@ export default function Search() {
   function SearchWeather(event) {
     event.preventDefault();
     updateWeather();
+    if (unitToggle) {
+      setUnitToggle(false);
+    }
   }
 
   async function updateWeather() {
