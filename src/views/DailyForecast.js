@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { ForecastDay } from "./WeatherApp";
+import ReactAnimatedWeather from "react-animated-weather";
 
 import "./../styles/DailyForecast.css";
 
@@ -12,7 +13,7 @@ export default function DailyForecast() {
       <div key={forecast.dt} className="col-sm-2 FcstDay">
         <div className="row">
           <div className="col-sm-3 FcstDay01">
-            <i className={forecast.icon}></i>
+            <ReactAnimatedWeather icon={forecast.icon} size={38} />
             <br />
           </div>
           <div className="col-sm-9 FcstDay02">

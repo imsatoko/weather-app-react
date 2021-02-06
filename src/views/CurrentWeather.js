@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
-import BackGroundImg from "./../img/cloud.jpg";
 import { CurrentTime } from "./../modules/Date.js";
 import { WeatherToday } from "./WeatherApp";
+import { BackgroundImg } from "./WeatherApp";
+import ReactAnimatedWeather from "react-animated-weather";
 
 import "./../styles/CurrentWeather.css";
 
 export default function CurrentWeather() {
   const currentWeather = useContext(WeatherToday);
+  const weatherImg = useContext(BackgroundImg);
 
   let currentTime = CurrentTime();
 
@@ -14,7 +16,7 @@ export default function CurrentWeather() {
     <div className="CurrentWeather">
       <div className="img-wrap">
         <img
-          src={BackGroundImg}
+          src={weatherImg[0]}
           alt="background"
           className="current-weather-img"
         />
@@ -30,7 +32,7 @@ export default function CurrentWeather() {
             </span>
           </div>
           <div className="col-2 CurrentWeatherIcon">
-            <i className={currentWeather[0].icon}></i>
+            <ReactAnimatedWeather icon={currentWeather[0].icon} />
           </div>
           <div className="col-5">
             <span className="CurrentTemperatureMin">

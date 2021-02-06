@@ -8,7 +8,8 @@ export function FormatCurrentWeather(response, precipitation) {
     temp: Math.round(result.main.temp),
     maxTemp: Math.round(result.main.temp_max),
     minTemp: Math.round(result.main.temp_min),
-    icon: `${formatIcon(result)} WeatherIconCurrent`,
+    icon: formatIcon(result),
+    main: result.weather[0].main,
     description: result.weather[0].description,
     wind: result.wind.speed,
     precipitation: Math.round(precipitation * 10) * 10,
@@ -27,7 +28,7 @@ export function FormatHourlyForecast(response) {
       hour: formatHour(forecast.dt),
       maxTemp: Math.round(forecast.main.temp_max),
       minTemp: Math.round(forecast.main.temp_min),
-      icon: `${formatIcon(forecast)} WeatherIconHour`,
+      icon: formatIcon(forecast),
     };
 
     hourlyForecastList.push(hourlyForecast);
@@ -50,7 +51,7 @@ export function FormatDailyForecast(response) {
       day: formatDay(new Date(forecast.dt * 1000).getDay()),
       maxTemp: Math.round(forecast.temp.max),
       minTemp: Math.round(forecast.temp.min),
-      icon: `${formatIcon(forecast)} WeatherIconDay`,
+      icon: formatIcon(forecast),
     };
 
     dailyForecastList.push(dailyForecast);
@@ -138,12 +139,12 @@ function formatIcon(forecast) {
 // format weather icon for daytime (6am - 5pm)
 function formatDayWeatherIcon(main, description) {
   let icons = {
-    "clear sky": "fas fa-sun",
-    "few clouds": "fas fa-cloud-sun",
-    "scattered clouds": "fas fa-cloud-sun",
-    "broken clouds": "fas fa-cloud",
-    "overcast clouds": "fas fa-cloud",
-    "freezing rain": "fas fa-snowflake",
+    "clear sky": "CLEAR_DAY",
+    "few clouds": "PARTLY_CLOUDY_DAY",
+    "scattered clouds": "PARTLY_CLOUDY_DAY",
+    "broken clouds": "CLOUDY",
+    "overcast clouds": "CLOUDY",
+    "freezing rain": "SLEET",
   };
 
   let icon = icons[description];
@@ -157,19 +158,19 @@ function formatDayWeatherIcon(main, description) {
 
 function formatDayWeatherIconMain(main) {
   let icons = {
-    Rain: "fas fa-cloud-sun-rain",
-    Snow: "fas fa-snowflake",
-    Drizzle: "fas fa-cloud-sun-rain",
-    Thunderstorm: "fas fa-bolt",
-    Mist: "fas fa-cloud",
-    Smoke: "fas fa-cloud",
-    Haze: "fas fa-cloud",
-    Dust: "fas fa-cloud",
-    Fog: "fas fa-cloud",
-    Sand: "fas fa-cloud",
-    Ash: "fas fa-cloud",
-    Squall: "fas fa-cloud",
-    Tornado: "fas fa-cloud",
+    Rain: "RAIN",
+    Snow: "SNOW",
+    Drizzle: "RAIN",
+    Thunderstorm: "RAIN",
+    Mist: "FOG",
+    Smoke: "FOG",
+    Haze: "FOG",
+    Dust: "FOG",
+    Fog: "FOG",
+    Sand: "FOG",
+    Ash: "FOG",
+    Squall: "RAIN",
+    Tornado: "WIND",
   };
 
   return icons[main];
@@ -178,12 +179,12 @@ function formatDayWeatherIconMain(main) {
 // format weather icon for nighttime (6pm - 5am)
 function formatNightWeatherIcon(main, description) {
   let icons = {
-    "clear sky": "fas fa-moon",
-    "few clouds": "fas fa-cloud-moon",
-    "scattered clouds": "fas fa-cloud-moon",
-    "broken clouds": "fas fa-cloud",
-    "overcast clouds": "fas fa-cloud",
-    "freezing rain": "fas fa-snowflake",
+    "clear sky": "CLEAR_NIGHT",
+    "few clouds": "PARTLY_CLOUDY_NIGHT",
+    "scattered clouds": "PARTLY_CLOUDY_NIGHT",
+    "broken clouds": "CLOUDY",
+    "overcast clouds": "CLOUDY",
+    "freezing rain": "SLEET",
   };
 
   let icon = icons[description];
@@ -197,19 +198,19 @@ function formatNightWeatherIcon(main, description) {
 
 function formatNightWeatherIconMain(main) {
   let icons = {
-    Rain: "fas fa-cloud-moon-rain",
-    Snow: "fas fa-snowflake",
-    Drizzle: "fas fa-cloud-moon-rain",
-    Thunderstorm: "fas fa-bolt",
-    Mist: "fas fa-cloud",
-    Smoke: "fas fa-cloud",
-    Haze: "fas fa-cloud",
-    Dust: "fas fa-cloud",
-    Fog: "fas fa-cloud",
-    Sand: "fas fa-cloud",
-    Ash: "fas fa-cloud",
-    Squall: "fas fa-cloud",
-    Tornado: "fas fa-cloud",
+    Rain: "RAIN",
+    Snow: "SNOW",
+    Drizzle: "RAIN",
+    Thunderstorm: "RAIN",
+    Mist: "FOG",
+    Smoke: "FOG",
+    Haze: "FOG",
+    Dust: "FOG",
+    Fog: "FOG",
+    Sand: "FOG",
+    Ash: "FOG",
+    Squall: "RAIN",
+    Tornado: "WIND",
   };
 
   return icons[main];

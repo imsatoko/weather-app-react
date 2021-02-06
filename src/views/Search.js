@@ -7,6 +7,14 @@ import { WeatherToday } from "./WeatherApp";
 import { ForecastHour } from "./WeatherApp";
 import { ForecastDay } from "./WeatherApp";
 import { Toggle } from "./WeatherApp";
+import { ErrorMsg } from "./WeatherApp";
+import { BackgroundImg } from "./WeatherApp";
+
+import CloudImg from "./../img/cloud.jpg";
+import ClearImg from "./../img/clear.jpg";
+import FogImg from "./../img/fog.jpg";
+import RainImg from "./../img/rain.jpg";
+import SnowImg from "./../img/snow.jpg";
 
 import "./../styles/Search.css";
 
@@ -20,21 +28,29 @@ export default function Search() {
   const [hourlyForecast, setHourlyForecast] = useContext(ForecastHour);
   const [dailyForecast, setDailyForecast] = useContext(ForecastDay);
   const [unitToggle, setUnitToggle] = useContext(Toggle);
+  const [error, setError] = useContext(ErrorMsg);
+  const [weatherImg, setWeatherImg] = useContext(BackgroundImg);
 
   if (
-    !Object.keys(currentWeather).length &&
+    Object.keys(currentWeather).length === 1 &&
     !hourlyForecast.length &&
-    !dailyForecast.length
+    !dailyForecast.length &&
+    !weatherImg
   ) {
     updateWeather();
   }
 
   function SearchWeather(event) {
     event.preventDefault();
-    updateWeather();
-    if (unitToggle) {
-      setUnitToggle(false);
+
+    if (error) {
+      setError("");
     }
+
+    updateWeather();
+
+    // reset
+    resetUnit();
   }
 
   async function updateWeather() {
@@ -42,7 +58,7 @@ export default function Search() {
       // current weather
       let current = await Axios.get(
         `${apiEndpoint}/weather?appid=${apiKey}&q=${city}&units=${units}`
-      );
+      ).catch(errorHandler);
 
       // 3 hour forecast
       let forecastHour = await Axios.get(
@@ -58,11 +74,19 @@ export default function Search() {
       Axios.get(
         `${apiEndpoint}/onecall?appid=${apiKey}&units=${units}&lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts`
       ).then(updateDailyForecast);
+    } else {
+      setError("Please input city name.");
     }
   }
 
+  function errorHandler() {
+    setError("City is not found.");
+  }
+
   function updateCurrentWeather(response, precipitation) {
-    setCurrentWeather(FormatCurrentWeather(response, precipitation));
+    let currentWeather = FormatCurrentWeather(response, precipitation);
+    setCurrentWeather(currentWeather);
+    updateBackgroundImg(currentWeather.main);
   }
 
   function updateHourlyForecast(response) {
@@ -73,9 +97,29 @@ export default function Search() {
     setDailyForecast(FormatDailyForecast(response));
   }
 
+  function updateBackgroundImg(main) {
+    if (main === "Clear") {
+      setWeatherImg(ClearImg);
+    } else if (main === "Clouds") {
+      setWeatherImg(CloudImg);
+    } else if (main === "Snow") {
+      setWeatherImg(SnowImg);
+    } else if (main === "Fog" || main === "Mist" || main === "Haze") {
+      setWeatherImg(FogImg);
+    } else {
+      setWeatherImg(RainImg);
+    }
+  }
+
   function updateCity(event) {
     let city = event.target.value;
     setCity(city.trim());
+  }
+
+  function resetUnit() {
+    if (unitToggle) {
+      setUnitToggle(false);
+    }
   }
 
   return (
@@ -94,9 +138,6 @@ export default function Search() {
         />
       </div>
       <input type="submit" className="btn btn-primary mb-2" value="Search" />
-      <button className="btn btn-success CurrentButton" id="current-location">
-        Current
-      </button>
     </form>
   );
 }

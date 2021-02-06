@@ -12,13 +12,8 @@
   font-size: 14px;
 }
 
-.WeatherIconHour {
-  margin: 5px auto;
-  font-size: 26px;
-}
-
 .Temperature {
-  margin: 5px auto;
+  margin: 0px auto;
   font-size: 13px;
 }
 
